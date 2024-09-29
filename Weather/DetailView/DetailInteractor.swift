@@ -6,14 +6,14 @@
 //
 
 protocol DetailInteractorDelegate {
-    func onViewLoaded(withDataItem dataItem: ResultItem?)
+    func fetchWeatherData(withDataItem dataItem: ResultItem?)
 }
 
 final class DetailInteractor: DetailInteractorDelegate {
     var repository: WeatherRepositoryDelegate?
-    var presenter: DetailPresenterDelegate?
+    weak var presenter: DetailPresenterDelegate?
     
-    func onViewLoaded(withDataItem dataItem: ResultItem?) {
+    func fetchWeatherData(withDataItem dataItem: ResultItem?) {
         let latitude = dataItem?.latitude ?? ""
         let longitude = dataItem?.longitude ?? ""
         let query = "\(latitude),\(longitude)"

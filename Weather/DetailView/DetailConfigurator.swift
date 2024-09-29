@@ -11,9 +11,11 @@ class DetailConfigurator {
         let presenter = DetailPresenter()
         let repository = WeatherRepository()
         
-        viewController.interactor = interactor
+        viewController.presenter = presenter
+        presenter.view = viewController
+        presenter.interactor = interactor
+        
         interactor.presenter = presenter
         interactor.repository = repository
-        presenter.view = viewController
     }
 }

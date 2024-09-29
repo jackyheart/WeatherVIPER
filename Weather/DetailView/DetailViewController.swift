@@ -21,7 +21,7 @@ final class DetailViewController: UIViewController {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var weatherLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    var interactor: DetailInteractorDelegate?
+    var presenter: DetailPresenterDelegate?
     var dataItem: ResultItem?
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ final class DetailViewController: UIViewController {
         resetValues()
         displayNavigationTitle()
         self.activityIndicator.startAnimating()
-        interactor?.onViewLoaded(withDataItem: dataItem)
+        presenter?.onViewLoaded(withDataItem: dataItem)
     }
     
     private func resetValues() {
