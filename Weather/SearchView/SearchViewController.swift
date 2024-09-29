@@ -20,6 +20,7 @@ final class SearchViewController: UIViewController {
     private let kWeatherCell = "weatherCell"
     private let emptyView = SearchEmptyView()
     private var cellModels: [SearchCellModel] = []
+    private var currentSearchText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,7 @@ final class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter?.onViewWillAppear()
+        presenter?.onSearchTextEntered(withSearchString: currentSearchText)
     }
     
     private func setupUI() {
@@ -94,6 +95,7 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.currentSearchText = searchText
         presenter?.onSearchTextEntered(withSearchString: searchText)
     }
     
