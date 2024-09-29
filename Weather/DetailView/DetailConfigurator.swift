@@ -5,7 +5,7 @@
 //  Created by Jacky Tjoa on 28/9/24.
 //
 
-class DetailConfigurator {
+final class DetailConfigurator {
     static func configure(_ viewController: DetailViewController) {
         let interactor = DetailInteractor()
         let presenter = DetailPresenter()
