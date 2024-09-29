@@ -35,7 +35,7 @@ final class DetailInteractorTests: XCTestCase {
     func testOnViewLoaded() {
         mockRepositoryManager.shouldRemoteServiceReturnSuccessResponse = true
         let searchResponse: SearchResponse = MockDataManager.fetchMockResponse(fileName: "search")
-        sut.onViewLoaded(withDataItem: searchResponse.searchApi.result.first)
+        sut.fetchWeatherData(withDataItem: searchResponse.searchApi.result.first)
         XCTAssertEqual(presenterSpy.dataItem?.areaName.first?.value, "London")
         XCTAssertEqual(presenterSpy.dataItem?.country.first?.value, "United Kingdom")
         XCTAssertEqual(presenterSpy.weatherResult?.tempC, "15")
@@ -44,7 +44,7 @@ final class DetailInteractorTests: XCTestCase {
         XCTAssertEqual(presenterSpy.weatherResult?.humidity, "51")
         
         mockRepositoryManager.shouldRemoteServiceReturnSuccessResponse = false
-        sut.onViewLoaded(withDataItem: searchResponse.searchApi.result.first)
+        sut.fetchWeatherData(withDataItem: searchResponse.searchApi.result.first)
         XCTAssertNotNil(presenterSpy.errorResult)
     }
 }
@@ -54,6 +54,7 @@ final class DetailPresenterSpy: DetailPresenterDelegate {
     var weatherResult: WeatherCondition?
     var errorResult: Error?
     
+    func onViewLoaded(withDataItem dataItem: ResultItem?) {}
     func presentWeatherResult(onDataItem dataItem: ResultItem?,
                               result: WeatherCondition?) {
         self.dataItem = dataItem

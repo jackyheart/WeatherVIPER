@@ -10,19 +10,31 @@ import XCTest
 
 final class DetailPresenterTests: XCTestCase {
     var sut: DetailPresenter!
+    var interactorSpy: DetailInteractorSpy!
     var viewSpy: DetailViewSpy!
     
     override func setUp() {
         super.setUp()
+        interactorSpy = DetailInteractorSpy()
         viewSpy = DetailViewSpy()
         sut = DetailPresenter()
+        sut.interactor = interactorSpy
         sut.view = viewSpy
     }
     
     override func tearDown() {
+        interactorSpy = nil
         viewSpy = nil
         sut = nil
         super.tearDown()
+    }
+    
+    func testOnViewLoaded() {
+        let searchResponse: SearchResponse = MockDataManager.fetchMockResponse(fileName: "search")
+        let searchResults = searchResponse.searchApi.result
+        sut.onViewLoaded(withDataItem: searchResults.first)
+        XCTAssertEqual(interactorSpy.fetchWeatherDataWithDataItem?.weatherUrl.first?.value,
+                       searchResults.first?.weatherUrl.first?.value)
     }
     
     func testPresentWeatherResult() {
@@ -45,6 +57,14 @@ final class DetailPresenterTests: XCTestCase {
         
         sut.presentError(error: nil)
         XCTAssertNil(viewSpy.errorResult)
+    }
+}
+
+final class DetailInteractorSpy: DetailInteractorDelegate {
+    var fetchWeatherDataWithDataItem: ResultItem?
+    
+    func fetchWeatherData(withDataItem dataItem: ResultItem?) {
+        fetchWeatherDataWithDataItem = dataItem
     }
 }
 
