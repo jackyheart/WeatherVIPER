@@ -19,7 +19,7 @@ final class SearchInteractor: SearchInteractorDelegate {
     var kLengthStartSearch = 1
     var itemOrdering: ItemOrdering = .descending
     private var dataList: [ResultItem] = []
-    private var viewedDataList: [ViewedItem] = []
+    private(set) var viewedDataList: [ViewedItem] = []
     
     private func retrieveViewedCities() -> [ViewedItem] {
         let lastViewedCities = repository?.retrieveViewedCities(limit: kLastViewedLimit,
