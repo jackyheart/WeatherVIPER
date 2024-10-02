@@ -30,6 +30,7 @@ final class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        presenter?.onViewWillAppear()
         presenter?.onSearchTextEntered(withSearchString: currentSearchText)
     }
     

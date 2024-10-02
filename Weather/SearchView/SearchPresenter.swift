@@ -14,6 +14,7 @@ enum ItemOrdering {
 
 protocol SearchPresenterDelegate: AnyObject {
     //inputs
+    func onViewWillAppear()
     func onSearchTextEntered(withSearchString searchString: String)
     func didPressSearch(withSearchString searchString: String)
     func didSelectItem(onIndex index: Int)
@@ -28,6 +29,10 @@ final class SearchPresenter: SearchPresenterDelegate {
     var interactor: SearchInteractorDelegate?
     var router: SearchRouterDelegate?
     weak var view: (UIViewController & SearchViewDelegate)?
+    
+    func onViewWillAppear() {
+        interactor?.fetchViewedCities()
+    }
     
     func onSearchTextEntered(withSearchString searchString: String) {
         interactor?.filterCities(withSearchString: searchString)

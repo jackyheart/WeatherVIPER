@@ -132,6 +132,7 @@ final class SearchPresenterSpy: SearchPresenterDelegate {
     var searchResults: [ResultItem] = []
     var errorResult: Error?
     
+    func onViewWillAppear() {}
     func onSearchTextEntered(withSearchString searchString: String) {}
     func didPressSearch(withSearchString searchString: String) {}
     func didSelectItem(onIndex index: Int) {}
